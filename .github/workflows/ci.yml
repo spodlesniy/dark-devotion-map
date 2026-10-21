@@ -58,7 +58,7 @@ jobs:
       - name: Build production application
         env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          VITE_APP_URL: ${{ steps.pages.outputs.base_url || vars.VITE_APP_URL || secrets.VITE_APP_URL }}
+          VITE_APP_URL: ${{ steps.pages.outputs.base_url || vars.VITE_APP_URL }}
         run: |
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             app_base="${PAGES_BASE_PATH}/"
