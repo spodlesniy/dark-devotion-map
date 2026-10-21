@@ -2,6 +2,8 @@
 
 An unofficial interactive map for [Dark Devotion](https://store.steampowered.com/app/718590/Dark_Devotion/), covering NPCs, enemies, items, places, and Codex entries.
 
+[Open the map](https://spodlesniy.github.io/dark-devotion-map/).
+
 The entity database is still being populated and corrected. See the [roadmap](ROADMAP.md).
 
 ## Using the map
@@ -46,6 +48,7 @@ Tests and shared test utilities belong in `tests/`. Use browser verification whe
 | Variable | Purpose |
 | --- | --- |
 | `VITE_WIKI_API_URL` | MediaWiki endpoint, such as `https://darkdevotion.fandom.com/api.php`. Blank or unset disables wiki integration. |
+| `VITE_APP_URL` | Optional public site URL for canonical and Open Graph metadata. CI prefers the Pages URL, then the configured repository value; see [deployment](docs/deployment.md#site-metadata-and-indexing). |
 | `VITE_AUTHOR_URL` | Optional author attribution URL. GitHub Actions uses the repository owner's GitHub profile. |
 | `VITE_APP_VERSION` | Set automatically from `package.json`. |
 

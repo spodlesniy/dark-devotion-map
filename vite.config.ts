@@ -5,6 +5,7 @@ import svgr from 'vite-plugin-svgr';
 
 import packageJson from './package.json' with { type: 'json' };
 import { entityDatabasePlugin } from './scripts/entityDatabasePlugin.ts';
+import { siteMetadataPlugin } from './scripts/siteMetadataPlugin.ts';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => {
@@ -24,6 +25,7 @@ export default defineConfig(({ mode, command }) => {
     },
     plugins: [
       entityDatabasePlugin(),
+      siteMetadataPlugin(envVariables.VITE_APP_URL),
       svgr({
         // Force to use oxc setting for Vite 8
         include: '**/*.svg?react',

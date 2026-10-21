@@ -1,7 +1,7 @@
 {
   "name": "dark-devotion-map",
-  "version": "1.0.1",
-  "description": "An unofficial interactive map for Dark Devotion.",
+  "version": "1.0.2",
+  "description": "An unofficial interactive map for Dark Devotion game.",
   "author": "Aleksandr Podlesnyi",
   "license": "SEE LICENSE IN LICENSE.md",
   "keywords": [

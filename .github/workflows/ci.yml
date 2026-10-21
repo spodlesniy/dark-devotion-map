@@ -58,6 +58,7 @@ jobs:
       - name: Build production application
         env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          VITE_APP_URL: ${{ steps.pages.outputs.base_url || vars.VITE_APP_URL || secrets.VITE_APP_URL }}
         run: |
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             app_base="${PAGES_BASE_PATH}/"
@@ -68,6 +69,9 @@ jobs:
             else
               app_base="/${repository_name}/"
             fi
+          fi
+          if [[ -z "$VITE_APP_URL" ]]; then
+            export VITE_APP_URL="https://${GITHUB_REPOSITORY_OWNER,,}.github.io${app_base}"
           fi
           npm run build -- --base "$app_base"
 
