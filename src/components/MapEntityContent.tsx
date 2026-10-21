@@ -1,7 +1,6 @@
 import type { Popup, Tooltip } from 'leaflet';
 import { type PropsWithChildren, type RefObject, useState } from 'react';
 
-import { isDeveloperMode } from 'src/common/environment';
 import { entityFieldVisibility } from 'src/helpers/entityFieldVisibility';
 import { entityWikiPage } from 'src/helpers/entityWikiPage';
 import { mapEntityLabel } from 'src/helpers/mapEntityDisplay';
@@ -71,7 +70,7 @@ export function MapEntityContent({ entity, wiki, children }: Readonly<MapEntityC
                 {image && (
                   <img
                     className="map-entity-tooltip__image"
-                    {...(isDeveloperMode ? { referrerPolicy: 'no-referrer' } : {})}
+                    referrerPolicy="no-referrer"
                     src={image.url}
                     alt={mapEntityLabel(entity)}
                     width={image.width}

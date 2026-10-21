@@ -197,11 +197,11 @@ describe('Enemy wiki popups', () => {
     expect(picture.parentElement).toBe(frame);
   });
 
-  it('retains the browser referrer policy outside developer mode', async () => {
-    environment.isDeveloperMode = false;
+  it.each([true, false])('omits image referrers when developer mode is %s', async (isDeveloperMode) => {
+    environment.isDeveloperMode = isDeveloperMode;
     render(<MapPointPopup entity={enemy} />);
     open();
-    expect(await screen.findByRole('img')).not.toHaveAttribute('referrerpolicy');
+    expect(await screen.findByRole('img')).toHaveAttribute('referrerpolicy', 'no-referrer');
   });
 
   it.each([undefined, '', '   '])('disables wiki loading when the endpoint is %j', (endpoint) => {
