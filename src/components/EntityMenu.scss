@@ -1,0 +1,144 @@
+@use '../styles/controls';
+
+.entity-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.entity-menu__search {
+  position: sticky;
+  z-index: var(--z-index-menu-search);
+  top: calc(-1 * var(--padding-content));
+  display: flex;
+  gap: var(--gap-small);
+  padding-block: var(--padding-small);
+  color: var(--color-text-muted);
+  background-color: var(--color-dialog);
+
+  input {
+    width: 100%;
+    min-width: 0;
+    min-height: var(--control-size);
+    padding: var(--padding-small) var(--padding-compact);
+    color: var(--color-text);
+    font: inherit;
+    background: var(--color-control);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--border-radius);
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    &:focus-visible {
+
+      @include controls.focus-ring;
+    }
+  }
+}
+
+.entity-menu__reset {
+
+  @include controls.control-surface;
+
+  display: flex;
+  flex: 0 0 var(--control-size);
+  align-items: center;
+  justify-content: center;
+  width: var(--control-size);
+  height: var(--control-size);
+  padding: var(--padding-small);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-text);
+    background-color: var(--color-control-hover);
+  }
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+
+  svg {
+    width: var(--entity-menu-icon-size);
+    height: var(--entity-menu-icon-size);
+  }
+}
+
+.entity-menu__icon {
+  display: flex;
+  flex: 0 0 var(--entity-menu-icon-size);
+  align-items: center;
+  justify-content: center;
+  width: var(--entity-menu-icon-size);
+  height: var(--entity-menu-icon-size);
+
+  &[data-type='enemy'] {
+    --point-color: var(--color-entity-enemy);
+  }
+
+  &[data-type='item'] {
+    --point-color: var(--color-entity-item);
+  }
+
+  &[data-type='place'] {
+    --point-color: var(--color-entity-place);
+  }
+
+}
+
+.entity-menu__icon svg {
+  width: var(--entity-menu-icon-size);
+  height: var(--entity-menu-icon-size);
+  flex-shrink: 0;
+}
+
+
+.entity-menu > .tree {
+  gap: var(--gap-medium);
+}
+
+.entity-menu .tree__row:hover {
+  background-color: var(--color-control-hover);
+}
+
+.entity-menu > .tree > li > details > .tree__row,
+.entity-menu > .tree > li > .tree__row {
+  font-size: var(--font-size-title);
+  font-weight: 500;
+}
+
+.entity-menu .tree__children {
+  font-size: var(--font-size-body);
+  font-weight: normal;
+}
+
+.entity-menu .tree__children .tree__title,
+.entity-menu .tree__children .tree__count:not(.tree__count--changed) {
+  color: var(--color-text-subtle);
+}
+
+.entity-menu .tree__children:has(> li > .tree__row > .tree__title > .tree__entry) {
+  padding-block: var(--padding-tiny);
+  background: var(--color-control);
+  border-radius: var(--border-radius);
+}
+
+.entity-menu [data-node-id='enemy:boss'] > .tree__children > li > .tree__row {
+  padding-right: calc(var(--tree-count-width) + var(--gap-small));
+}
+
+.entity-menu [data-node-id='codex'] > .tree__children > li > .tree__row,
+.entity-menu [data-node-id='npc'] > .tree__children > li > .tree__row {
+  padding-right: calc(var(--tree-count-width) + var(--gap-small));
+
+  .tree__entry {
+    padding-inline: 0;
+  }
+}
+
+.entity-menu [data-node-id='place:switch'] > .tree__children {
+  padding-left: 0;
+}

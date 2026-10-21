@@ -1,0 +1,152 @@
+@use 'styles/scrollbar';
+
+@use 'styles/sizes';
+
+html {
+  // Spacing aliases use the shared size scale.
+  --gap-micro: var(--size-micro);
+  --gap-tiny: var(--size-tiny);
+  --gap-small: var(--size-small);
+  --gap-medium: var(--size-medium);
+  --gap-big: var(--size-big);
+  --gap-huge: var(--size-huge);
+  --padding-tiny: var(--size-tiny);
+  --padding-small: var(--size-small);
+  --padding-compact: calc(var(--size-small) + var(--size-tiny));
+  --padding-medium: var(--size-medium);
+  --padding-content: calc(var(--size-medium) + var(--size-tiny));
+  --padding-big: var(--size-big);
+  --padding-huge: var(--size-huge);
+  --margin-small: var(--size-small);
+  --margin-medium: var(--size-medium);
+  --margin-huge: var(--size-huge);
+
+  // Theme colors.
+  --color-background: #000;
+  --color-text: #eee9df;
+  --color-text-muted: #c5bfb2;
+  --color-text-subtle: #7c766b;
+  --color-surface: rgb(16, 18, 21, 0.9);
+  --color-dialog: #101215;
+  --color-backdrop: rgb(0, 0, 0, 0.6);
+  --color-surface-hover: rgb(50, 48, 43, 0.95);
+  --color-control: rgb(220, 208, 180, 0.1);
+  --color-control-hover: rgb(220, 208, 180, 0.2);
+  --color-border: rgb(220, 208, 180, 0.35);
+  --color-border-muted: rgb(220, 208, 180, 0.2);
+  --color-accent: #dccca5;
+  --color-point-hover-outline: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  --color-filtered-count: #f5d76e;
+  --color-warning: #f5d76e;
+  --color-error: #f5222d;
+  --color-shadow: rgb(0, 0, 0, 0.2);
+  --color-entity-npc: #79c9ec;
+  --color-entity-enemy: #f28b82;
+  --color-entity-item: #e7c56b;
+  --color-entity-place: #8bcba0;
+  --color-entity-blocker: #ef9d55;
+  --color-entity-chest: #d6b879;
+  --color-entity-switch: #bca6e8;
+  --color-entity-lever: #65c5c5;
+  --color-entity-button: #789ce0;
+  --color-entity-prison-cell: #a0a8b5;
+  --color-entity-prison-key: #c795df;
+  --color-entity-arrows: #d0aa76;
+  --color-map-title: #c5bfb2;
+  --color-entity-trap: #d978c9;
+  --color-entity-codex: var(--color-entity-item);
+  --color-tablet-damage: #df3434;
+  --color-tablet-faith: #ebebeb;
+  --color-tablet-crit: #d6e037;
+  --color-tablet-stamina: #59df34;
+  --color-entity-elite-glow: rgb(255, 255, 255, 0.65);
+  --color-scroll-bar: var(--color-border);
+  --color-scroll-bar-hover: var(--color-accent);
+
+  // Shared controls and typography.
+  --control-size: 44px;
+  --border-width: 1px;
+  --border-radius: var(--size-micro);
+  --border-radius-large: var(--size-tiny);
+  --focus-ring-width: var(--size-micro);
+  --focus-ring-offset: var(--size-micro);
+  --font-size-body: 14px;
+  --font-size-small: 12px;
+  --font-size-title: 18px;
+  --map-title-line-height: 1.4;
+  --map-title-size-huge: 32px;
+  --map-title-size-big: 24px;
+  --map-title-size-medium: 18px;
+  --map-title-size-small: 14px;
+
+  // Drawer dimensions and motion.
+  --drawer-width: 320px;
+  --entity-menu-icon-size: 24px;
+  --tree-count-width: 34px;
+  --tree-icon-size: 24px;
+  --tree-visibility-size: 16px;
+  --tree-disclosure-size: var(--size-medium);
+  --tree-hidden-opacity: 0.75;
+  --drawer-icon-size: 32px;
+  --drawer-close-font-size: 28px;
+  --drawer-handle-font-size: 32px;
+  --drawer-line-height: 1.6;
+  --drawer-transition-duration: 280ms;
+  --drawer-handle-highlight-interval: 5s;
+  --z-index-drawer: 999;
+  --z-index-menu-search: 1;
+  --z-index-context-menu: 1000;
+  --z-index-tool-window: 1001;
+  --tool-window-width: 320px;
+  --tool-window-header-height: var(--control-size);
+  --context-menu-width: 180px;
+  --context-menu-height: calc(3 * var(--control-size) + 2 * var(--padding-tiny) + 2 * var(--border-width));
+  --point-dialog-width: 640px;
+  --chest-variant-icon-size: 32px;
+  --title-autocomplete-max-height: calc(5 * var(--control-size));
+  --codex-part-field-width: calc(2 * var(--control-size));
+  --point-icon-size-small: 16px;
+  --point-icon-size-medium: 24px;
+  --point-icon-size-large: 32px;
+  --point-hit-size: var(--point-icon-size-medium);
+  --point-frame-default-border-color: #fff;
+  --point-frame-border-width: 2px;
+  --point-toolbar-icon-size: 24px;
+  --map-tooltip-gap: var(--size-small);
+  --map-tooltip-max-width: 320px;
+  --map-tooltip-image-width: 112px;
+  --map-tooltip-transition-duration: 180ms;
+  --point-dot-size: 12px;
+  --point-elite-glow-blur: 3px;
+
+  // Scrollbar geometry and error details.
+  --scrollbar-width: calc(var(--size-medium) + var(--size-tiny));
+  --scrollbar-border-width: calc(var(--size-small) - var(--size-micro));
+  --error-details-max-height: 10em;
+  --error-stack-width: 90vw;
+  --error-text-shadow: 0 3px 5px var(--color-shadow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}

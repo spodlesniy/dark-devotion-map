@@ -1,0 +1,55 @@
+@use '../styles/controls';
+
+.entity-database-export {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+}
+
+.entity-database-export__status {
+  color: var(--color-text-muted);
+}
+
+.entity-database-export__status--unsaved {
+  color: var(--color-warning);
+}
+
+.entity-database-export__button {
+  min-height: var(--control-size);
+  padding: var(--padding-small) var(--padding-medium);
+
+  @include controls.control-surface;
+
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-control-hover);
+  }
+
+  &:disabled {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+}
+
+.entity-database-export__status-row,
+.entity-database-export__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-small);
+}
+
+.entity-database-export__actions > button {
+  flex: 1;
+  min-width: 0;
+}
+
+.entity-database-export__error {
+  color: var(--color-error);
+}

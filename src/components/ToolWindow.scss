@@ -1,0 +1,68 @@
+@use '../styles/controls';
+
+.tool-window {
+  position: fixed;
+  z-index: var(--z-index-tool-window);
+  top: var(--padding-medium);
+  right: var(--padding-medium);
+  width: min(var(--tool-window-width), 100vw);
+  color: var(--color-text);
+  background-color: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.tool-window__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-small);
+  height: var(--tool-window-header-height);
+  padding-inline: var(--padding-medium) var(--padding-tiny);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.tool-window__title {
+  font-size: var(--font-size-body);
+}
+
+.tool-window__toggle {
+  flex-shrink: 0;
+  width: var(--control-size);
+  height: var(--control-size);
+  cursor: pointer;
+
+  @include controls.control-surface;
+
+  &--warning {
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+  }
+
+  &:hover {
+    background-color: var(--color-control-hover);
+  }
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+}
+
+.tool-window__content {
+  padding: var(--padding-medium);
+  border-top: var(--border-width) solid var(--color-border-muted);
+}
+
+.tool-window__status {
+  padding: var(--padding-small) var(--padding-medium);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  border-top: var(--border-width) solid var(--color-border-muted);
+}

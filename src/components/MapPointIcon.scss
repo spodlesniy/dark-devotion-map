@@ -1,0 +1,27 @@
+@use '../styles/controls';
+
+.map-point-icon {
+  width: var(--point-hit-size);
+  height: var(--point-hit-size);
+  margin-top: calc(var(--point-hit-size) / -2);
+  margin-left: calc(var(--point-hit-size) / -2);
+
+  > div {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.map-point-icon__button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:focus-visible {
+
+    @include controls.focus-ring(null);
+  }
+}

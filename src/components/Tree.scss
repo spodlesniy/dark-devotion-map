@@ -1,0 +1,149 @@
+@use '../styles/controls';
+
+.tree,
+.tree__children {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree__children {
+  margin-top: var(--margin-small);
+  padding-left: var(--padding-medium);
+}
+
+.tree__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-small);
+  color: var(--color-text-muted);
+  border-radius: var(--border-radius);
+  list-style: none;
+  cursor: pointer;
+
+  &::after {
+    content: '›';
+    flex: 0 0 var(--tree-disclosure-size);
+    width: var(--tree-disclosure-size);
+    text-align: center;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+}
+
+.tree__row[aria-disabled='true'],
+.tree__row--leaf {
+  cursor: default;
+
+  &::after {
+    visibility: hidden;
+  }
+}
+
+.tree details[open] > .tree__row::after {
+  transform: rotate(90deg);
+}
+
+.tree__title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tree__icon {
+  display: grid;
+  flex: 0 0 var(--tree-icon-size);
+  place-items: center;
+  width: var(--tree-icon-size);
+  height: var(--tree-icon-size);
+
+  img,
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.tree__count {
+  flex: 0 0 var(--tree-count-width);
+  width: var(--tree-count-width);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tree__visibility {
+  display: grid;
+  flex: 0 0 var(--tree-visibility-size);
+  place-items: center;
+  width: var(--tree-visibility-size);
+  height: var(--tree-visibility-size);
+  padding: 0;
+  color: var(--color-accent);
+  background: transparent;
+  border: 0;
+  border-radius: var(--border-radius);
+  outline: none;
+  cursor: pointer;
+
+  &[aria-pressed='false'] {
+    color: var(--color-text-subtle);
+    opacity: var(--tree-hidden-opacity);
+  }
+
+  &[aria-pressed='mixed'] {
+    color: var(--color-warning);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-control-hover);
+  }
+
+  &--isolate:hover,
+  &--isolate:focus-visible {
+    color: var(--color-background);
+    background: var(--color-accent);
+    opacity: 1;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.tree__count--changed {
+  color: var(--color-filtered-count);
+}
+
+.tree__entry {
+  width: 100%;
+  padding: var(--padding-tiny) var(--padding-compact);
+  color: var(--color-text-muted);
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+}

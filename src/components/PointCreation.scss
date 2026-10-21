@@ -1,0 +1,393 @@
+@use '../styles/controls';
+
+.point-context-menu {
+  position: fixed;
+  z-index: var(--z-index-context-menu);
+  left: clamp(var(--padding-small), var(--context-menu-x), calc(100vw - var(--context-menu-width) - var(--padding-small)));
+  top: clamp(var(--padding-small), var(--context-menu-y), calc(100dvh - var(--context-menu-height) - var(--padding-small)));
+  width: var(--context-menu-width);
+  max-width: calc(100vw - 2 * var(--padding-small));
+  max-height: calc(100dvh - 2 * var(--padding-small));
+  overflow-y: auto;
+  padding: var(--padding-tiny);
+  color: var(--color-text);
+  background-color: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.point-context-menu button,
+.point-placement button,
+.point-dialog button,
+.point-dialog input,
+.point-dialog select,
+.point-dialog textarea {
+  min-height: var(--control-size);
+  padding: var(--padding-small) var(--padding-medium);
+
+  @include controls.control-surface;
+
+  &:focus-visible {
+
+    @include controls.focus-ring;
+  }
+}
+
+.point-context-menu button,
+.point-placement button,
+.point-dialog button {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-control-hover);
+  }
+}
+
+.map-point-placement {
+  cursor: crosshair;
+}
+
+.point-placement {
+  position: fixed;
+  z-index: var(--z-index-context-menu);
+  left: 50%;
+  bottom: var(--padding-big);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-medium);
+  width: min(var(--point-dialog-width), calc(100vw - 2 * var(--padding-medium)));
+  padding: var(--padding-medium);
+  color: var(--color-text);
+  background-color: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  p {
+    font-size: var(--font-size-small);
+  }
+}
+
+.point-context-menu button {
+  width: 100%;
+  text-align: left;
+}
+
+.point-dialog {
+  width: min(var(--point-dialog-width), calc(100vw - 2 * var(--padding-medium)));
+  max-height: calc(100dvh - 2 * var(--padding-medium));
+  margin: auto;
+  padding: var(--padding-big);
+  color: var(--color-text);
+  background-color: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-large);
+
+  &::backdrop {
+    background-color: var(--color-backdrop);
+  }
+
+  h2 {
+    font-size: var(--font-size-title);
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+  }
+
+  .point-dialog__boss {
+    flex-direction: row;
+    align-items: center;
+
+    input {
+      width: var(--control-size);
+      padding: 0;
+    }
+  }
+
+  option {
+    background-color: var(--color-dialog);
+  }
+
+  p {
+    color: var(--color-text-muted);
+  }
+
+  [role='alert'] {
+    color: var(--color-error);
+  }
+}
+
+.point-dialog__form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-medium);
+}
+
+.point-dialog__header,
+.point-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-medium);
+}
+
+.point-dialog__actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.point-dialog__coordinates {
+  margin-right: auto;
+  font-size: var(--font-size-small);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.point-dialog textarea {
+  resize: vertical;
+}
+
+.point-dialog input[aria-invalid='true'] {
+  border-color: var(--color-error);
+
+  &:focus-visible {
+    outline-color: var(--color-error);
+  }
+}
+
+.point-dialog button:disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.point-dialog__url-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.point-dialog__url-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-medium);
+}
+
+.point-dialog .point-dialog__wiki-page {
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  font-size: var(--font-size-small);
+
+  input {
+    min-height: auto;
+    padding: 0;
+    accent-color: var(--color-accent);
+  }
+}
+
+.point-dialog__wiki-validation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gap-small);
+  font-size: var(--font-size-small);
+}
+
+.point-dialog__wiki-status {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-small);
+  color: var(--color-text-muted);
+}
+
+.point-dialog .point-dialog__wiki-status--warning {
+  color: var(--color-warning);
+}
+
+.point-dialog .point-dialog__wiki-status--error {
+  color: var(--color-error);
+}
+
+.point-dialog__codex-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gap-small);
+
+  > label:not(.point-dialog__boss) {
+    width: var(--codex-part-field-width);
+
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  > .point-dialog__boss {
+    min-height: var(--control-size);
+  }
+}
+
+.point-title-autocomplete {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.point-title-autocomplete__list {
+  position: absolute;
+  z-index: var(--z-index-context-menu);
+  top: 100%;
+  inset-inline: 0;
+  max-height: var(--title-autocomplete-max-height);
+  overflow-y: auto;
+  padding: var(--padding-tiny);
+  list-style: none;
+  background: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  [role='option'] {
+    padding: var(--padding-small) var(--padding-medium);
+    overflow-wrap: anywhere;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    &:hover,
+    &[aria-selected='true'] {
+      background: var(--color-control-hover);
+    }
+  }
+}
+
+.point-dialog__enemy-flags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-medium);
+}
+
+.chest-variant-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+
+  > button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  img {
+    width: var(--chest-variant-icon-size);
+    height: var(--chest-variant-icon-size);
+    object-fit: scale-down;
+  }
+}
+
+.chest-variant-select__list {
+  position: absolute;
+  z-index: var(--z-index-context-menu);
+  top: 100%;
+  inset-inline: 0;
+  max-height: var(--title-autocomplete-max-height);
+  overflow-y: auto;
+  padding: var(--padding-tiny);
+  background: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  [role='option'] {
+    display: flex;
+    align-items: center;
+    min-height: var(--control-size);
+    padding: var(--padding-small) var(--padding-medium);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    &:hover,
+    &[data-active='true'] {
+      background: var(--color-control-hover);
+    }
+  }
+}
+
+.point-dialog__title-fields {
+  display: contents;
+
+  > label {
+    grid-column: auto;
+    min-width: 0;
+  }
+
+  input[type='color'] {
+    width: 100%;
+    height: var(--control-size);
+    padding: var(--padding-small);
+    cursor: pointer;
+  }
+}
+
+.point-dialog__form > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.point-dialog__form > label:has(> select),
+.point-dialog__form > .chest-variant-select {
+  grid-column: auto;
+  justify-content: flex-end;
+}
+
+.point-dialog select {
+  width: 100%;
+  min-width: 0;
+}
+
+.point-dialog__header h2,
+.point-dialog__header button {
+  flex-shrink: 0;
+}
+
+.point-dialog__notice {
+  margin-left: auto;
+  color: var(--color-warning);
+  font-size: var(--font-size-small);
+  text-align: right;
+}
+
+.chest-variant-select > button {
+  height: var(--control-size);
+  padding-block: var(--padding-tiny);
+}
+
+.point-dialog__form > .point-dialog__codex-title {
+  grid-column: span 2;
+}
+
+.point-dialog__form > .point-dialog__codex-group {
+  grid-column: span 1;
+}
+
+.point-dialog__codex-title input,
+.point-dialog__codex-group input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.point-dialog__form > .point-dialog__enemy-flags,
+.point-dialog__form > .point-dialog__codex-fields {
+  grid-column: span 2;
+  align-self: end;
+  justify-content: flex-start;
+  min-height: var(--control-size);
+}

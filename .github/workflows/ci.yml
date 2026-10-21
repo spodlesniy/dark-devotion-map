@@ -1,0 +1,95 @@
+name: Check and deploy
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Healthcheck, tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    env:
+      VITE_AUTHOR_URL: ${{ github.server_url }}/${{ github.repository_owner }}
+      VITE_WIKI_API_URL: ${{ vars.VITE_WIKI_API_URL }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js and npm cache
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check React Compiler health
+        run: npm run healthcheck
+
+      - name: Run tests
+        run: npm test -- --run
+
+      - name: Configure GitHub Pages
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build production application
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            app_base="${PAGES_BASE_PATH}/"
+          else
+            repository_name="${GITHUB_REPOSITORY#*/}"
+            if [[ "${repository_name,,}" == "${GITHUB_REPOSITORY_OWNER,,}.github.io" ]]; then
+              app_base="/"
+            else
+              app_base="/${repository_name}/"
+            fi
+          fi
+          npm run build -- --base "$app_base"
+
+      - name: Upload GitHub Pages artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "js/ts.tsdk.path": "node_modules\\typescript\\lib",
+    "svg.preview.background": "transparent"
+  }
+}

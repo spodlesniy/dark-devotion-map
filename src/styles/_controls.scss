@@ -1,0 +1,15 @@
+@mixin focus-ring($offset: var(--focus-ring-offset)) {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+
+  @if $offset {
+    outline-offset: $offset;
+  }
+}
+
+@mixin control-surface {
+  color: inherit;
+  font: inherit;
+  background-color: var(--color-control);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+}

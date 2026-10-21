@@ -1,0 +1,95 @@
+@use '../styles/controls';
+
+.editable-point-icon {
+  width: var(--point-hit-size);
+  height: var(--point-hit-size);
+  margin-top: calc(var(--point-hit-size) / -2);
+  margin-left: calc(var(--point-hit-size) / -2);
+  color: var(--color-text);
+}
+
+.editable-point {
+  position: relative;
+  width: var(--point-hit-size);
+  height: var(--point-hit-size);
+}
+
+.editable-point__dot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  &:focus-visible {
+
+    @include controls.focus-ring(null);
+  }
+}
+
+.editable-point__bridge {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  padding-top: var(--padding-small);
+}
+
+.editable-point--right .editable-point__bridge {
+  right: 0;
+  left: auto;
+}
+
+.editable-point:hover .editable-point__bridge:not([hidden]),
+.editable-point:focus-within .editable-point__bridge:not([hidden]),
+.editable-point--moving .editable-point__bridge:not([hidden]) {
+  display: block;
+}
+
+.editable-point--moving .editable-point__dot {
+  cursor: move;
+}
+
+.editable-point__toolbar {
+  display: flex;
+  gap: var(--gap-tiny);
+  padding: var(--padding-tiny);
+  font: var(--font-size-body) 'IBM Plex Sans', sans-serif;
+  background: var(--color-dialog);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  button {
+    display: grid;
+    place-items: center;
+    width: var(--control-size);
+    height: var(--control-size);
+    padding: var(--padding-small);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    background: var(--color-control);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--border-radius);
+
+    &:hover,
+    &[aria-pressed='true'] {
+      background: var(--color-control-hover);
+    }
+
+    &:focus-visible {
+
+      @include controls.focus-ring(null);
+    }
+
+    &.editable-point__delete {
+      color: var(--color-warning);
+    }
+  }
+
+  svg {
+    width: var(--point-toolbar-icon-size);
+    height: var(--point-toolbar-icon-size);
+  }
+}

@@ -1,0 +1,95 @@
+.point-appearance {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  pointer-events: none;
+}
+
+// Override Leaflet's width:auto for images inside the marker pane.
+
+.leaflet-container .leaflet-marker-pane img.point-appearance {
+  width: 100%;
+}
+
+.point-appearance--dot {
+  width: var(--point-dot-size);
+  height: var(--point-dot-size);
+  margin: auto;
+  background: var(--point-color);
+  border: var(--focus-ring-width) solid var(--point-color);
+  border-radius: 50%;
+}
+
+.point-appearance--elite {
+  filter: drop-shadow(0 0 var(--point-elite-glow-blur) var(--color-entity-elite-glow));
+}
+
+.point-frame-marker .point-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--color-background);
+  border: var(--point-frame-border-width) solid var(--point-frame-border-color);
+  border-radius: 50%;
+}
+
+.map-container--icons-bare .point-frame-marker .point-frame {
+  background: transparent;
+  border-color: transparent;
+}
+
+.point-frame-marker .point-frame:hover,
+.point-frame-marker .point-frame--popup-open {
+  /* Leaflet suppresses pointer focus outlines with an inline outline-style. */
+  outline-width: var(--focus-ring-width);
+  outline-style: solid !important;
+  outline-color: var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.point-frame-marker .point-frame:hover:not(.point-frame--popup-open) {
+  outline-color: var(--color-point-hover-outline);
+}
+
+.map-container--icons-bare .point-frame-marker .point-frame:hover:not(:focus-visible),
+.map-container--icons-bare .point-frame-marker .point-frame--popup-open:not(:focus-visible) {
+  outline-style: none !important;
+}
+
+.point-appearance--blocker {
+  --point-color: var(--color-entity-blocker);
+}
+
+.point-appearance--trap {
+  --point-color: var(--color-entity-trap);
+}
+
+.point-appearance--chest {
+  --point-color: var(--color-entity-chest);
+}
+
+.point-appearance--lever {
+  --point-color: var(--color-entity-lever);
+}
+
+.point-appearance--button {
+  --point-color: var(--color-entity-button);
+}
+
+.point-appearance--prison-cell {
+  --point-color: var(--color-entity-prison-cell);
+}
+
+.point-appearance--prison-key {
+  --point-color: var(--color-entity-prison-key);
+}
+
+.point-appearance--arrows {
+  --point-color: var(--color-entity-arrows);
+}
+
+.point-appearance--switch {
+  --point-color: var(--color-entity-switch);
+}

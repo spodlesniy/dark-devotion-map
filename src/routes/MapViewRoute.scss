@@ -1,0 +1,52 @@
+.map-container {
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--color-background);
+
+  & .leaflet-container {
+    background-color: var(--color-background);
+
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+.map-icon-background {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--gap-tiny);
+  font-size: var(--font-size-small);
+  white-space: nowrap;
+  cursor: pointer;
+
+  input {
+    accent-color: var(--color-accent);
+  }
+}
+
+.map-container {
+
+  .leaflet-attribution-flag {
+    display: none !important;
+  }
+}
+
+.map-status {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-small);
+}
+
+.map-status__count {
+  min-width: 0;
+}
+
+.map-status__coordinates {
+  flex-shrink: 0;
+  margin-left: auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}

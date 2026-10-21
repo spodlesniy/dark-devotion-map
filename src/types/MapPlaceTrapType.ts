@@ -1,0 +1,15 @@
+export enum MapPlaceTrapType {
+  Spear = 'spear',
+  Axe = 'axe',
+  SpinningBlade = 'spinning-blade',
+  Spikes = 'spikes',
+  OilSlick = 'oil-slick',
+  Stalagtight = 'stalagtight',
+  ExplodingPlant = 'exploding-plant',
+  PoisonPlant = 'poison-plant',
+  LightningOrb = 'lightning-orb',
+  BloodExplosion = 'blood-explosion',
+  BlessingThief = 'blessing-thief',
+  DeathPit = 'death-pit',
+  SlumpingFloor = 'slumping-floor',
+}

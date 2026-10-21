@@ -1,0 +1,35 @@
+.map-point-icon.map-title-marker,
+.editable-point-icon.map-title-marker {
+  width: max-content;
+  height: auto;
+  margin: 0;
+
+  > div {
+    width: max-content;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.map-title-marker .editable-point,
+.map-title-marker .map-point-icon__button,
+.map-title-marker .editable-point__dot {
+  width: max-content;
+  height: auto;
+}
+
+.map-title-label {
+  display: block;
+  color: var(--color-map-title);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--map-title-size-medium);
+  line-height: var(--map-title-line-height);
+  white-space: pre;
+  text-align: center;
+}
+
+@each $size in huge, big, medium, small {
+  .map-title-label--#{$size} {
+    font-size: var(--map-title-size-#{$size});
+  }
+}

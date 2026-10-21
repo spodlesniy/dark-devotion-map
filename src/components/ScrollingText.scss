@@ -1,0 +1,54 @@
+.scrolling-text {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.scrolling-text__static {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scrolling-text__moving {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: max-content;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .scrolling-text--overflowing:is(:hover, :focus-within),
+  :where(button, a, [tabindex]):focus-visible .scrolling-text--overflowing {
+
+    .scrolling-text__static {
+      opacity: 0;
+    }
+
+    .scrolling-text__moving {
+      visibility: visible;
+      animation: scrolling-text-travel var(--scrolling-text-duration)
+        linear(0, 1 var(--scrolling-text-travel-end), 1) infinite;
+    }
+  }
+}
+
+@keyframes scrolling-text-travel {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(calc(-1 * var(--scrolling-text-distance)));
+  }
+}
