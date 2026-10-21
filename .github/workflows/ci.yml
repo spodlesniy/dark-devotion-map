@@ -6,6 +6,9 @@ on:
       - '**'
     tags:
       - 'v*'
+  pull_request:
+    branches:
+      - '**'
 
 permissions:
   contents: read
@@ -48,7 +51,7 @@ jobs:
         run: npm test -- --run
 
       - name: Configure GitHub Pages
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         id: pages
         uses: actions/configure-pages@v5
 
@@ -69,14 +72,14 @@ jobs:
           npm run build -- --base "$app_base"
 
       - name: Upload GitHub Pages artifact
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-pages-artifact@v4
         with:
           path: build
 
   deploy:
     name: Deploy to GitHub Pages
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
